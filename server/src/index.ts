@@ -1,6 +1,6 @@
 import { MikroORM } from "@mikro-orm/core";
 import { __db_connection_string__, __prod__ } from "./constants";
-// import { Post } from "./entities/Post";
+import "reflect-metadata";
 import mikroOrmConfig from "./mikro-orm.config";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
