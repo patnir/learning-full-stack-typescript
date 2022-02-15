@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+
+  db: 
+    container_name: 'serene'
+    image: "postgres:14.1"
+    volumes: 
+      - "./tmp/db:/var/lib/postgresql/data"
+    ports: 
+      - "5433:5432"
+    hostname: serene-db
+    environment: 
+      POSTGRES_USER: "serene"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "serene_development"
