@@ -2,6 +2,7 @@ import { __prod__ } from "./constants";
 import { Options } from "@mikro-orm/core";
 import { Post } from "./entities/Post";
 import path from "path";
+import { User } from "./entities/User";
 
 const config: Options = {
   migrations: {
@@ -9,7 +10,7 @@ const config: Options = {
     glob: "!(*.d).{js,ts}",
   },
   allowGlobalContext: true,
-  entities: [Post],
+  entities: [Post, User],
   type: "postgresql",
   dbName: "serene_development",
   clientUrl: process.env.DB_CONNECTION_STRING,
