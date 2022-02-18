@@ -40,6 +40,32 @@ class UserResponse {
 
 @Resolver()
 export class UserResolver {
+  @Query(() => UserResponse, { nullable: true })
+  async me(@Ctx() { em, req }: MyContext): Promise<UserResponse> {
+    if (!req.session.userId) {
+      return {
+        errors: [
+          {
+            field: "cookie",
+            message: "cookie not found",
+          },
+        ],
+      };
+    }
+    const user = await em.findOne(User, { id: req.session.userId });
+    if (!user) {
+      return {
+        errors: [
+          {
+            field: "cookie",
+            message: "invalid cookie",
+          },
+        ],
+      };
+    }
+    return { user };
+  }
+
   @Query(() => [User])
   users(@Ctx() { em }: MyContext): Promise<User[]> {
     return em.find(User, {});
