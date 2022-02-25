@@ -25,7 +25,7 @@ const main = async () => {
   app.use(
     cors({
       origin: "*",
-      credentials: true, // <-- REQUIRED backend setting
+      credentials: true,
     })
   );
 
