@@ -1,7 +1,31 @@
 version: '3.8'
 
 services:
-
+  server: 
+    build: "./server"
+    platform: linux/amd64
+    working_dir: "/home/server"
+    volumes:
+      - "./server:/home/server"
+    ports:
+      - "3001:3001"
+    hostname: server
+    depends_on:
+      - db
+      - redis
+  web: 
+    build: "./server"
+    platform: linux/amd64
+    working_dir: "/home/web"
+    volumes:
+      - "./web:/home/web"
+    ports:
+      - "3000:3000"
+    hostname: web
+    depends_on:
+      - db
+      - redis
+      - server
   db: 
     container_name: 'serene'
     image: "postgres:14.1"
