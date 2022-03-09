@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  server:
+    build: "./server"
+    platform: linux/amd64
+    working_dir: "/home/server"
+    volumes:
+      - "./server:/home/server"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DB_CONNECTION_STRING=postgresql://serene:password@serene-db:5432
   # watcher: 
   #   build: "./server"
   #   working_dir: "/home/server"
@@ -10,20 +23,6 @@ services:
   #     - db
   #     - redis
   #   command: yarn watch
-  server: 
-    build: "./server"
-    platform: linux/amd64
-    working_dir: "/home/server"
-    volumes:
-      - "./server:/home/server"
-    ports:
-      - "3001:3001"
-    hostname: server
-    depends_on:
-      - db
-      - redis
-    environment:
-      - DB_CONNECTION_STRING=postgresql://serene:password@127.0.0.1:5432
   # web: 
   #   build: "./web"
   #   working_dir: "/home/web"
@@ -36,22 +35,24 @@ services:
   #     - db
   #     - redis
   #     - server
-  db: 
+  db:
     container_name: 'serene'
     image: "postgres:14.1"
-    volumes: 
+    volumes:
       - "./tmp/db:/var/lib/postgresql/data"
-    ports: 
+    ports:
       - "5432:5432"
     hostname: serene-db
-    environment: 
+    environment:
       POSTGRES_USER: "serene"
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: "serene_development"
-  redis: 
+  redis:
     image: redis:6.2-alpine
     container_name: sereneredis
     ports:
       - '6379:6379'
-    volumes: 
+    expose:
+      - "6379"
+    volumes:
       - "./tmp/cache:/data"
