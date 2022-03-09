@@ -22,7 +22,9 @@ const main = async () => {
   const app = express();
 
   const RedisStore = connectRedis(session);
-  let redisClient = new ioredis();
+  let redisClient = new ioredis({
+    host: "serenecache",
+  });
 
   app.use(
     cors({
@@ -37,7 +39,6 @@ const main = async () => {
       store: new RedisStore({
         client: redisClient,
         disableTouch: true,
-        port: 6379,
         logErrors: true,
       }),
       cookie: {
