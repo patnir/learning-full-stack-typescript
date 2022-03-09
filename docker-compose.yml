@@ -1,15 +1,15 @@
 version: '3.8'
 
 services:
-  watcher: 
-    build: "./server"
-    working_dir: "/home/server"
-    volumes:
-      - "./server:/home/server"
-    depends_on:
-      - db
-      - redis
-    command: yarn watch
+  # watcher: 
+  #   build: "./server"
+  #   working_dir: "/home/server"
+  #   volumes:
+  #     - "./server:/home/server"
+  #   depends_on:
+  #     - db
+  #     - redis
+  #   command: yarn watch
   server: 
     build: "./server"
     working_dir: "/home/server"
@@ -18,11 +18,11 @@ services:
     ports:
       - "3001:3001"
     hostname: server
-    command: yarn dev
+    # command: yarn dev
     depends_on:
       - db
       - redis
-      - watcher
+      # - watcher
   # web: 
   #   build: "./web"
   #   working_dir: "/home/web"

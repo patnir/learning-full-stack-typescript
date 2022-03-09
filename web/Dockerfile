@@ -1,3 +1,3 @@
 FROM node:lts
 
-CMD yarn build && yarn start
+CMD yarn && ./run.sh
