@@ -12,17 +12,18 @@ services:
   #   command: yarn watch
   server: 
     build: "./server"
+    platform: linux/amd64
     working_dir: "/home/server"
     volumes:
       - "./server:/home/server"
     ports:
       - "3001:3001"
     hostname: server
-    # command: yarn dev
     depends_on:
       - db
       - redis
-      # - watcher
+    environment:
+      - DB_CONNECTION_STRING=postgresql://serene:password@127.0.0.1:5432
   # web: 
   #   build: "./web"
   #   working_dir: "/home/web"
@@ -41,7 +42,7 @@ services:
     volumes: 
       - "./tmp/db:/var/lib/postgresql/data"
     ports: 
-      - "5433:5432"
+      - "5432:5432"
     hostname: serene-db
     environment: 
       POSTGRES_USER: "serene"
