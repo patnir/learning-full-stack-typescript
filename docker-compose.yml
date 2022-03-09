@@ -38,6 +38,18 @@ services:
       - "6379"
     volumes:
       - "./tmp/cache:/data"
+  web: 
+    build: "./web"
+    working_dir: "/home/web"
+    volumes:
+      - "./web:/home/web"
+    ports:
+      - "3000:3000"
+    hostname: web
+    depends_on:
+      - db
+      - redis
+      - server
 
   # watcher: 
   #   build: "./server"
@@ -48,15 +60,4 @@ services:
   #     - db
   #     - redis
   #   command: yarn watch
-  # web: 
-  #   build: "./web"
-  #   working_dir: "/home/web"
-  #   volumes:
-  #     - "./web:/home/web"
-  #   ports:
-  #     - "3000:3000"
-  #   hostname: web
-  #   depends_on:
-  #     - db
-  #     - redis
-  #     - server
+  
