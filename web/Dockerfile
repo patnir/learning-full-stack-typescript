@@ -1,3 +1,3 @@
 FROM node:lts
 
-CMD yarn start
+CMD yarn build && yarn start

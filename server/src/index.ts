@@ -12,8 +12,10 @@ import session from "express-session";
 import connectRedis from "connect-redis";
 import { MyContext } from "./types";
 import cors from "cors";
+import { DummyResolver } from "./resolvers/dummy";
 
 const main = async () => {
+  console.log(mikroOrmConfig);
   const orm = await MikroORM.init(mikroOrmConfig);
   await orm.getMigrator().up();
 
@@ -24,8 +26,8 @@ const main = async () => {
 
   app.use(
     cors({
-      origin: "*",
       credentials: true,
+      origin: "*",
     })
   );
 
@@ -52,7 +54,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PostResolver, UserResolver],
+      resolvers: [PostResolver, UserResolver, DummyResolver],
       validate: false,
     }),
     context: ({ req, res }): MyContext => ({ em: orm.em, req, res }),
