@@ -6,6 +6,6 @@ export class DummyResolver {
   @Query(() => String)
   dummy(@Ctx() { em }: MyContext): string {
     console.log(em);
-    return JSON.stringify({ message: "hello wen world" });
+    return JSON.stringify({ message: "hello omg world" });
   }
 }

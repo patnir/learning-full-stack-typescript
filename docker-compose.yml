@@ -14,8 +14,6 @@ services:
       - redis
     environment:
       - DB_CONNECTION_STRING=postgresql://serene:password@serene-db:5432
-    links:
-      - redis
   db:
     container_name: 'serene'
     image: "postgres:14.1"
